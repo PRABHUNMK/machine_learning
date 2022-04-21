@@ -1,0 +1,72 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+#dataset:
+dataset=pd.read_csv('Salary_Data.csv')
+
+
+#split variables x and y
+#x=independent  y=dependent
+x=dataset.iloc[:,:-1].values
+y=dataset.iloc[:,-1].values
+
+
+#split data as train and test:
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=0)
+
+#model build
+from sklearn.linear_model import LinearRegression
+model=LinearRegression()
+model.fit(x_train,y_train)
+LinearRegression()
+
+
+#predict for test case
+y_pred=model.predict(x_test)
+
+#data visulaization using matplotlib
+
+plt.scatter(x_train,y_train,color='red')
+plt.plot(x_train,model.predict(x_train),color='blue')
+plt.title("..................")
+plt.xlabel("exp")
+plt.ylabel("sal")
+plt.show()
+
+
+##for future prediction
+
+plt.scattor(x_train.y_train,color="red")
+plt.plot(x_train,y_pred,color="blue")
+plt.title("......")
+plt.xlabel(".........")
+plt.ylabel("........")
+plt.show()
+
+
+
+
+##fromula : y=ax+b
+
+print(model.coef_)
+
+print(model.intercept_)
+
+using our model to predict the future
+
+future=int(input("enter the experience:"))
+future_pred=model.predict([[future]])
+print("salary:",future_pred)
+
+
+##score prediction
+from sklearn.model_selection import cross_validate
+from sklearn.metrics import make_scorer
+
+score=cross_validate(model,x,y,cv=3)
+sorted(score.key())
+
+score['test_score']
+
